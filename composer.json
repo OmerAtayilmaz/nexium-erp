@@ -1,0 +1,15 @@
+{
+    "name": "user/php-restful-api",
+    "description": "END 2 END  Restful API",
+    "authors": [
+        {
+            "name": "Omer Atayilmaz"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Model\\": "Core/Model/"
+        }
+    }
+}
