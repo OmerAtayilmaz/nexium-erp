@@ -6,10 +6,9 @@
             "name": "Omer Atayilmaz"
         }
     ],
-    "require": {},
     "autoload": {
         "psr-4": {
-            "Model\\": "Core/Model/"
+            "Model\\": "Src/Model/"
         }
     }
 }
