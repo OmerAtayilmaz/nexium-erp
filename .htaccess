@@ -1,0 +1,12 @@
+# İgnore File
+<Files "README.MD">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# İgonre All files by condition
+
+<FilesMatch "\.(md|txt|log|conf|json)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>

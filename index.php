@@ -1,5 +1,9 @@
 <?php
-require 'vendor/autoload.php';  // Make sure the path to autoload.php is correct
+
+require 'vendor/autoload.php';
+
+require __DIR__ . '/bootstrap.php';
+
 
 use Model\Product;
 
