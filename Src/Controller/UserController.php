@@ -8,8 +8,11 @@ class UserController extends Controller{
 
  
     public function index(){
-        $user = new User();
-        return $user->findAll();
+        $userModel = new User();
+        $users = $userModel->get();
+     
+        echo json_encode($users);
+
     }
 
     public function store() {
