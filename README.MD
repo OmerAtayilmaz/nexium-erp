@@ -1,4 +1,4 @@
-# RESTFULL API
+# E-COMMERCE RESTFULL API
 A large-scape restful api with all modern features.
 
 ## Features
@@ -25,3 +25,13 @@ A large-scape restful api with all modern features.
 21. Database Indexing
 
 
+*******
+Sırasıyla Yapılacaklar;
+
+User Auth:
+    - Register
+    - Login with JWT
+    - JWT Management
+    - Forgot Password with Mail Management
+    - Reset Password with Mail Management
+    - Logout

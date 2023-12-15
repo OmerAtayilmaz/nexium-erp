@@ -1,4 +1,14 @@
 <?php
+const BASE_PATH = __DIR__;
+function base_path($path)
+{
+    return BASE_PATH . $path;
+}
+
+//return JSON, NOT HTML
+header('Content-Type: application/json');
+
+
 
 $env_file_path = realpath(__DIR__ . "/.env");
 if (!is_file($env_file_path)) {
