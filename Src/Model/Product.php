@@ -2,6 +2,5 @@
 namespace Model;
 
 class Product extends Model {
-  
-    public $attributes = ['title','price'];
+   public $attributes = ['title','price'];
 }

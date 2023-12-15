@@ -1,15 +1,15 @@
 <?php
+#PATH MANAGEMENT
 const BASE_PATH = __DIR__;
 function base_path($path)
 {
     return BASE_PATH . $path;
 }
 
-//return JSON, NOT HTML
-header('Content-Type: application/json');
 
 
 
+# ENVIRONMENT MANAGEMENT
 $env_file_path = realpath(__DIR__ . "/.env");
 if (!is_file($env_file_path)) {
     throw new ErrorException("Enviroment File Is Missing!");

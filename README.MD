@@ -35,3 +35,11 @@ User Auth:
     - Forgot Password with Mail Management
     - Reset Password with Mail Management
     - Logout
+
+
+Cool Özellikler - Laravel değil Laraveliki :) 
+ - <b>PSR-4 Autoload</b> entegrasyonu kullanıldı
+ - Model oluşturulduğunda tablo adını bulmaya çalışır veya $table_name="foo" ile custom tablo adı da belirtilebilir.
+ - FooController::class şeklinde class adı belirtilerek ve method adı girilerek controller kullanılabilir.
+ - <b>Singleton</b> ile Modelde connection sağlandı ve Model'i extends etmiş her Model db'ye erişebilir.
+ - <b>.env </b> yönetimi eklendi
