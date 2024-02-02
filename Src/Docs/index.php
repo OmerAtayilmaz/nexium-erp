@@ -16,7 +16,7 @@
 <script>
   window.onload = () => {
     window.ui = SwaggerUIBundle({
-      url: 'http://api.local/api/documentation',
+      url: 'http://localhost/api/documentation',
       dom_id: '#swagger-ui',
     });
   };

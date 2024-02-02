@@ -24,6 +24,15 @@ A large-scape restful api with all modern features.
 20. Configuration Management
 21. Database Indexing
 
+### START APP
+sudo /usr/sbin/apachectl start
+
+MYSQL BASH;
+docker exec -it mysql-container bash -l
+
+mysql -u root -p
+password girip sql kodlarını yazabiliriz.
+
 
 *******
 Sırasıyla Yapılacaklar;

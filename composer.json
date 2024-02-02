@@ -6,18 +6,25 @@
             "name": "Omer Atayilmaz"
         }
     ],
+
+        "config": {
+            "vendor-dir": "vendor"
+        }
+    ,
     "autoload": {
         "psr-4": {
             "Model\\": "Src/Model/",
             "Util\\": "Src/Util/",
             "Routes\\": "Src/Routes/",
             "Controller\\": "Src/Controller/",
-            "Database\\": "Src/Database/"
+            "Database\\": "Src/Database/",
+            "Logger\\":"Src/Log"
           
         }
     },
     "require": {
         "zircote/swagger-php": "^4.8",
-        "doctrine/annotations": "^2.0"
+        "doctrine/annotations": "^2.0",
+        "firebase/php-jwt": "^6.10"
     }
 }

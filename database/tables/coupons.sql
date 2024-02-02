@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS coupons;
+
+-- Coupons Table
+CREATE TABLE IF NOT EXISTS coupons  (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    discount VARCHAR(200) DEFAULT '"$00.00"'
+);

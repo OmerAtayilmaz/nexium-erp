@@ -12,16 +12,17 @@ class Database
 
     private function __construct()
     {
-        $dsn = 'mysql:' . http_build_query([
-            'host' => 'localhost',
-            'port' => 3306,
-            'dbname' => 'php_api',
-            'charset' => 'utf8mb4'
-        ], '', ';');
-
-        $this->connection = new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], [
-           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]);
+        try {
+            $dsn = 'mysql:host=127.0.0.1;port=3306;dbname=php_api;charset=utf8mb4';
+            
+            $this->connection = new PDO($dsn, 'root', 'root', [
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Enable error reporting for debugging
+            ]);
+        } catch (\PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            die();
+        }
     }
 
     public static function getInstance() {
