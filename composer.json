@@ -18,8 +18,8 @@
             "Routes\\": "Src/Routes/",
             "Controller\\": "Src/Controller/",
             "Database\\": "Src/Database/",
-            "Logger\\":"Src/Log"
-          
+            "Logger\\":"Src/Log",
+            "Helper\\":"Src/Helper"
         }
     },
     "require": {
