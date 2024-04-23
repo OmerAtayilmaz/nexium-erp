@@ -10,7 +10,10 @@ Route::prefix("wcms")->group(function(){
         Route::get("/","index");
         Route::get("/show/{page}","show");
         Route::post("/store","store");
+        Route::put("/update/{id}","update");
+        Route::delete("/destroy/{id}","destroy");
     });
+
 
     Route::prefix("component")->group(function(){
 

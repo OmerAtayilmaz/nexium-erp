@@ -17,9 +17,29 @@ class PageController extends Controller
 
     public function store(Request $req){
 
-  
         $status = Page::create($req->all());
 
-        return response()->json($status);
+        http_response_code(201);
+        return response()->json([
+            "status" => "success",
+            "data" => $status
+        ]);
+    }
+
+    public function update(Request $req, $id){
+        $status = Page::find($id)->update($req->all());
+
+        return response()->json([
+            "status" => $status,
+            "message" => "Page data updated gracefully!"
+        ]);
+    }
+
+    public function destroy(Request $req, $id){
+        $status = Page::find($id)->delete();
+        return response()->json([
+            "status" => $status,
+            "message" => "Page deleted gracefully!"
+        ]);
     }
 }
