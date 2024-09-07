@@ -1,0 +1,16 @@
+models:
+  PageCategory:
+    title: string:400
+    description: longtext
+    published_at: nullable timestamp
+    status: string:200
+    relationships:
+      hasMany: Page
+
+controllers:
+  PageCategory:
+    index: 
+      query: all
+    store:
+      validate: title, description
+

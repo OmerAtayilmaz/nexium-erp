@@ -1,0 +1,13 @@
+created:
+    - app/Http/Controllers/PageCategoryController.php
+    - database/factories/PageCategoryFactory.php
+    - database/migrations/2024_09_07_182921_create_page_categories_table.php
+    - app/Models/PageCategory.php
+    - tests/Feature/Http/Controllers/PageCategoryControllerTest.php
+    - app/Http/Requests/PageCategoryStoreRequest.php
+updated:
+    - routes/web.php
+models:
+    Page: { title: string, keywords: string, content: longtext }
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
+    PageCategory: { title: 'string:400', description: longtext, published_at: 'nullable timestamp', status: 'string:200', relationships: { hasMany: Page } }
