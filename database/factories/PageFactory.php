@@ -19,7 +19,10 @@ class PageFactory extends Factory
         return [
             'title' => fake()->text(80),
             'keywords' => fake()->text(70),
-            'content' => fake()->text(500)
+            'content' => fake()->text(500),
+            'description' => fake()->text(120),
+            'slug' => fake()->slug(8),
+            'featured_image' => "7clAggheaalWSNe0sI0cwLUE4ZvYp3qJrBdqnN1B.png"
         ];
     }
 }

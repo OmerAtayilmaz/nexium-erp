@@ -29,7 +29,16 @@ class PageResource extends Resource
                 Forms\Components\TextInput::make('keywords')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('content')
+                Forms\Components\TextInput::make('description')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\FileUpload::make('featured_image')
+                    ->image()
+                    ->required(),
+                Forms\Components\Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -43,6 +52,11 @@ class PageResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('keywords')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('featured_image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -25,16 +25,13 @@ class PageCategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->markAsRequired(false)
                     ->maxLength(400),
                 Forms\Components\Textarea::make('description')
                     ->required()
-                    ->markAsRequired(false)
                     ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('published_at'),
                 Forms\Components\TextInput::make('status')
                     ->required()
-                    ->markAsRequired(false)
                     ->maxLength(200),
             ]);
     }
@@ -44,7 +41,6 @@ class PageCategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Başlık')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
