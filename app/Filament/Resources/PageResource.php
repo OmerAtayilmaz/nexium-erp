@@ -17,13 +17,17 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Web Yönetimi';
+    protected static ?string $navigationLabel = 'Sayfalar';
+
+    protected static ?string $navigationIcon = 'heroicon-o-document';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label('Başlık')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('keywords')
@@ -37,9 +41,11 @@ class PageResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('featured_image')
                     ->image()
+                    ->columnSpanFull()
                     ->required(),
-                Forms\Components\Textarea::make('content')
+                Forms\Components\RichEditor::make('content')
                     ->required()
+                 
                     ->columnSpanFull(),
             ]);
     }
@@ -49,14 +55,24 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label('Başlık')
+                    ->limit(55)
+                    ->extraAttributes(['class' => 'border rounded-xl'])
+                    ->sortable()
+                    
                     ->searchable(),
                 Tables\Columns\TextColumn::make('keywords')
+                    ->label('Anahtar Kelimeler')
+                    ->sortable()
+                    ->toggleable(true)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('featured_image'),
+                  
+        
+                Tables\Columns\ImageColumn::make('featured_image')
+                ->label('Öne Çıkan Görsel')
+                ->width(200)
+                ->height(100)
+                ,
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -75,6 +91,7 @@ class PageResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportAction::make()
                 ]),
             ]);
     }

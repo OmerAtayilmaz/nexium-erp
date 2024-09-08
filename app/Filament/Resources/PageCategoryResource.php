@@ -17,6 +17,9 @@ class PageCategoryResource extends Resource
 {
     protected static ?string $model = PageCategory::class;
 
+    protected static ?string $navigationGroup = 'Web Yönetimi';
+    protected static ?string $navigationLabel = 'Kategoriler';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
