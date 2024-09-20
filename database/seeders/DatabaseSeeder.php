@@ -20,7 +20,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('test1234'),
         ]);
-        Page::factory(15)->create();
-        PageCategory::factory(15)->create();
+        User::factory(50)->create();
+
+        $categories = PageCategory::factory(5)->create();
+        Page::factory(50)->recycle($categories)->create();
+
     }
 }

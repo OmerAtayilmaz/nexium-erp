@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PageStatus;
 use App\Filament\Resources\PageCategoryResource\Pages;
 use App\Filament\Resources\PageCategoryResource\RelationManagers;
 use App\Models\PageCategory;
@@ -33,9 +34,10 @@ class PageCategoryResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('published_at'),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
                     ->required()
-                    ->maxLength(200),
+                    ->options(PageStatus::class)
+                   ,
             ]);
     }
 
@@ -49,7 +51,7 @@ class PageCategoryResource extends Resource
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
+                    ->searchable()->badge()->color('primary'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -83,8 +85,8 @@ class PageCategoryResource extends Resource
     {
         return [
             'index' => Pages\ListPageCategories::route('/'),
-            'create' => Pages\CreatePageCategory::route('/create'),
-            'edit' => Pages\EditPageCategory::route('/{record}/edit'),
+      //      'create' => Pages\CreatePageCategory::route('/create'),
+     //       'edit' => Pages\EditPageCategory::route('/{record}/edit'),
         ];
     }
 }

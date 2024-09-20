@@ -22,9 +22,10 @@ class PageCategoryFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(4),
-            'description' => $this->faker->text(),
+            'slug' => $this->faker->slug(3),
+            'description' => $this->faker->text(150),
             'published_at' => $this->faker->dateTime(),
-            'status' => $this->faker->regexify('[A-Za-z0-9]{200}'),
+            'status' => $this->faker->randomElement(['draft', 'published']),
         ];
     }
 }

@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('page_categories', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('title', 400);
+            $table->string('slug', 400);
             $table->longText('description');
             $table->timestamp('published_at')->nullable();
             $table->string('status', 200);
