@@ -6,15 +6,21 @@ use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\RelationManagers;
 use App\Models\Page;
 use App\Models\PageCategory;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
+
 
 class PageResource extends Resource
 {
@@ -57,7 +63,11 @@ class PageResource extends Resource
 
                 Forms\Components\FileUpload::make('Öne Çıkan Görsel')
                     ->image()
+                    ->maxSize(10 * 1024 * 1024) // 10mb
                     ->columnSpanFull()
+                    ->imageEditor()
+                    ->directory('page_images')
+                    //Dosya adını korur - bad practice -> preserveFileName()
                     ->required(),
                 Forms\Components\RichEditor::make('Sayfa İçeriği')
                     ->required()
@@ -72,38 +82,51 @@ class PageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Başlık')
-                    ->limit(55)
-
+                    ->limit(10)
                     ->extraAttributes(['class' => 'border rounded-xl'])
+                    ->description(function(Page $page){
+                        return Str::of($page['keywords'])->limit(5);
+                    })
                     ->sortable(),
-                Tables\Columns\TextColumn::make('category_id')
+
+                Tables\Columns\TextColumn::make('category.title')
                     ->description('Sayfa kategorileri')
+                    ->limit(5)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('keywords')
-                    ->label('Anahtar Kelimeler')
-                    ->sortable()
-                    ->toggleable(true)
-                    ->searchable(),
-
-
+                    
                 Tables\Columns\ImageColumn::make('featured_image')
                     ->label('Öne Çıkan Görsel')
                     ->width(200)
                     ->height(100),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Action::make(name: 'status')
+                    ->label('fill Form')
+                    ->icon('heroicon-o-star')
+                    ->action(function($livewire){
+                        Notification::make()->success()->title('User updated')->body('The user has been saved successfully.')->send();
+                    }),
+                ]),
+     
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
