@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\V1\PageController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //export routes and import in api.php
@@ -16,6 +15,6 @@ Route::prefix("wcms")->group(function () {
     });
 
 
-    Route::prefix("component")->group(function () {
-    });
+    Route::resource('page-category', App\Http\Controllers\Api\V1\PageCategoryController::class)->only('index', 'show');
+
 });

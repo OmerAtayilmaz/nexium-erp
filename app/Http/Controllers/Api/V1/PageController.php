@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller
 {
     public function index(){   
-        return response()->json(Page::all());
+        return response()->json(Page::paginate(5));
     }
 
     public function show(Page $page){

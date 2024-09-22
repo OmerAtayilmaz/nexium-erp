@@ -7,4 +7,3 @@ Route::get('/', function () {
 });
 
 
-Route::resource('page-categories', App\Http\Controllers\Api\V1\PageCategoryController::class)->only('index', 'store');
