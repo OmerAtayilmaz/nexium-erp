@@ -25,6 +25,7 @@ class PageCategory extends Model
         'description',
         'published_at',
         'status',
+        'slug'
     ];
 
     /**

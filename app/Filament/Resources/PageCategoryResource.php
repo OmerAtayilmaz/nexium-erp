@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,6 +31,7 @@ class PageCategoryResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(400),
+                    Forms\Components\TextInput::make('slug')->required(),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
@@ -46,26 +48,37 @@ class PageCategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->sortable()
                     ->searchable(),
+                
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable()
+                    ,
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable()->badge()->color('primary'),
+                    ->searchable()->sortable()->badge()->color('primary'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('created_at')->default(),
+                \Filament\Tables\Filters\SelectFilter::make('status')->options([
+                    'draft' => 'Draft',
+                    'published' => 'Published',
+                ])
+                ->multiple()
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -87,6 +100,12 @@ class PageCategoryResource extends Resource
             'index' => Pages\ListPageCategories::route('/'),
       //      'create' => Pages\CreatePageCategory::route('/create'),
      //       'edit' => Pages\EditPageCategory::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets() : array {
+        return [
+            PageCategoryResource\Widgets\PageCategoryOverview::class            
         ];
     }
 }

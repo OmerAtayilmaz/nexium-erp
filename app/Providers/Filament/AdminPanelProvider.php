@@ -43,6 +43,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->brandName("NEXIUM")
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

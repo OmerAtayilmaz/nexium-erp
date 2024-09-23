@@ -82,6 +82,8 @@ class PageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Başlık')
+                    ->searchable()
+                    
                     ->limit(10)
                     ->extraAttributes(['class' => 'border rounded-xl'])
                     ->description(function(Page $page){
@@ -91,6 +93,7 @@ class PageResource extends Resource
 
                 Tables\Columns\TextColumn::make('category.title')
                     ->description('Sayfa kategorileri')
+                    ->sortable()
                     ->limit(5)
                     ->searchable(),
                     
@@ -101,12 +104,14 @@ class PageResource extends Resource
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
+                    ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])
@@ -151,4 +156,6 @@ class PageResource extends Resource
             'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
     }
+
+   
 }
