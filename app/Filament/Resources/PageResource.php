@@ -163,5 +163,10 @@ class PageResource extends Resource
         ];
     }
 
-   
+
+    public static function getWidgets(): array {
+        return [
+            PageResource\Widgets\PageChartWidget::class,
+        ];
+    }
 }

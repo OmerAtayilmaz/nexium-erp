@@ -16,4 +16,10 @@ class ListPages extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array{
+        return [
+            PageResource\Widgets\PageChartWidget::make(),
+        ];
+    }
 }

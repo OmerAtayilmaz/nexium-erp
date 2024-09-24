@@ -40,8 +40,10 @@ class PageCategory extends Model
 
     public function pages(): HasMany
     {
-        return $this->hasMany(Page::class);
+        return $this->hasMany(Page::class,"category_id");
     }
+
+
 
     public static function getForm(){
         return [
