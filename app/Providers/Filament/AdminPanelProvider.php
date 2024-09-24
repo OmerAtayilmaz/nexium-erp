@@ -29,6 +29,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('backoffice')
             ->login()
+            ->registration()
+            ->passwordReset()
+            ->emailVerification(false)
+            ->sidebarCollapsibleOnDesktop(true)
+            ->darkMode(true,true)
             ->colors([
                 'primary' => Color::Indigo,
                 'gray' => Color::Slate

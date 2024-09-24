@@ -79,6 +79,10 @@ class PageCategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->slideOver(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make()
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -105,7 +109,8 @@ class PageCategoryResource extends Resource
 
     public static function getWidgets() : array {
         return [
-            PageCategoryResource\Widgets\PageCategoryOverview::class            
+            PageCategoryResource\Widgets\PageCategoryOverview::class,
+            PageCategoryResource\Widgets\PageCategoryChartWidget::class         
         ];
     }
 }

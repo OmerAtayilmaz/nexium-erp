@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListPageCategories extends ListRecords
 {
     protected static string $resource = PageCategoryResource::class;
+    //full width columnSpan
 
     protected function getHeaderActions(): array
     {
@@ -19,7 +20,10 @@ class ListPageCategories extends ListRecords
 
     protected function getHeaderWidgets(): array{
         return [
-            PageCategoryResource\Widgets\PageCategoryOverview::class
+            PageCategoryResource\Widgets\PageCategoryOverview::class,
+            PageCategoryResource\Widgets\PageCategoryChartWidget::class
         ];
     }
+
+    
 }

@@ -45,23 +45,27 @@ class PageResource extends Resource
                     ->editOptionForm(PageCategory::getForm())
                     ->createOptionForm(PageCategory::getForm()),
                 Fieldset::make('SEO Alanları')->schema([
-                    Forms\Components\TextInput::make('Başlık')
+                    Forms\Components\TextInput::make('title')
                         ->label('Başlık')
                         ->required()
 
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('Anahtar Kelimeler')
+                    Forms\Components\TextInput::make('keywords')
+                    ->label('Anahtar Kelimeler')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('Açıklama')
+                    Forms\Components\TextInput::make('description')
+                        ->label('Açıklama')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('Url')
+                    Forms\Components\TextInput::make('slug')
+                    ->label('Url')
                         ->required()
                         ->maxLength(255),
                 ]),
 
-                Forms\Components\FileUpload::make('Öne Çıkan Görsel')
+                Forms\Components\FileUpload::make('featured_image')
+                ->label('Öne Çıkan Görsel')
                     ->image()
                     ->maxSize(10 * 1024 * 1024) // 10mb
                     ->columnSpanFull()
@@ -69,7 +73,9 @@ class PageResource extends Resource
                     ->directory('page_images')
                     //Dosya adını korur - bad practice -> preserveFileName()
                     ->required(),
-                Forms\Components\RichEditor::make('Sayfa İçeriği')
+                Forms\Components\RichEditor::make('content')
+                
+                ->label('Sayfa İçeriği')
                     ->required()
 
                     ->columnSpanFull(),
@@ -83,7 +89,6 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label('Başlık')
                     ->searchable()
-                    
                     ->limit(10)
                     ->extraAttributes(['class' => 'border rounded-xl'])
                     ->description(function(Page $page){
@@ -116,7 +121,7 @@ class PageResource extends Resource
 
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('created_at')->default(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -136,7 +141,8 @@ class PageResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ExportAction::make()
+                    Tables\Actions\ExportAction::make(),
+                
                 ]),
             ]);
     }
@@ -152,8 +158,8 @@ class PageResource extends Resource
     {
         return [
             'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
+     //       'create' => Pages\CreatePage::route('/create'),
+   //         'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
     }
 

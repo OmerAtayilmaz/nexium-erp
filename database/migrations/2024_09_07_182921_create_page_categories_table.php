@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title', 400);
             $table->string('slug', 400);
             $table->longText('description');
+            
             $table->timestamp('published_at')->nullable();
             $table->string('status', 200);
             $table->timestamps();
