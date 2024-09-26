@@ -9,8 +9,16 @@ use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
-    public function index(){   
-        return response()->json(Page::paginate(5));
+    public function index(Request $req){   
+        
+        $sort = $req->get('sort','asc');
+
+        if(!in_array($sort,['asc','desc']))
+            return response()->json(['error' => 'Invalid sort parameter. Use "asc" or "desc".'], 400);
+
+        $pages = Page::orderBy('created_at',$sort)->paginate(8);
+
+        return response()->json($pages);
     }
 
     public function show(Page $page){

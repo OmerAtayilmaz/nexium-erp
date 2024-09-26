@@ -24,7 +24,8 @@ class PageFactory extends Factory
             'description' => fake()->text(120),
             'slug' => fake()->slug(8),
             'featured_image' => "7clAggheaalWSNe0sI0cwLUE4ZvYp3qJrBdqnN1B.png",
-            'category_id' => PageCategory::factory()
+            'category_id' => PageCategory::factory(),
+            'created_at' => fake()->dateTimeBetween('-5 months', 'now')
         ];
     }
 }
