@@ -2,27 +2,23 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PageResource;
 
 class PageController extends Controller
 {
     public function index(Request $req){   
         
-        $sort = $req->get('sort','asc');
-
-        if(!in_array($sort,['asc','desc']))
-            return response()->json(['error' => 'Invalid sort parameter. Use "asc" or "desc".'], 400);
-
-        $pages = Page::orderBy('created_at',$sort)->paginate(8);
-
-        return response()->json($pages);
+  
+        return PageResource::collection(Page::paginate(5));
     }
 
-    public function show(Page $page){
-        return response()->json($page);
+    public function show($id){
+       
+   
+        return  new PageResource(Page::findOrFail($id));
     }
 
     public function store(Request $req){

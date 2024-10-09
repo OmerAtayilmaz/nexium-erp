@@ -16,10 +16,11 @@ Route::prefix('auth')->controller(AuthController::class)->group(function(){
     Route::post('reset-password','reset-password');
 });
 
-Route::prefix("wcms")->group(function () {
-    Route::prefix("page")->controller(PageController::class)->group(function () {
-        Route::get("/", "index");
-        Route::get("/show/{page}", "show");
+Route::prefix("wcms")->name('wcms.')->group(function () {
+    Route::prefix("page")->name('page.')->controller(PageController::class)->group(function () {
+        Route::get("/", "index")->name('index');
+        Route::get("/show/{id}", "show")->name('show');;
+     
         Route::post("/store", "store");
         Route::put("/update/{id}", "update");
         Route::delete("/destroy/{id}", "destroy");

@@ -9,9 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Page extends Model
 {
     use HasFactory;
-    protected $fillable = ["title","keywords","content","description","slug","featured_image"];
+    protected $fillable = ["id","title","keywords","content","description","slug","featured_image"];
 
     public function category(): BelongsTo{
         return $this->belongsTo(PageCategory::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id'; // or 'slug' if using slugs
     }
 }
