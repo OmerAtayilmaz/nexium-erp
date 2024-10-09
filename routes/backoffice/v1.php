@@ -20,13 +20,12 @@ Route::prefix("wcms")->name('wcms.')->group(function () {
     Route::prefix("page")->name('page.')->controller(PageController::class)->group(function () {
         Route::get("/", "index")->name('index');
         Route::get("/show/{id}", "show")->name('show');;
-     
         Route::post("/store", "store");
         Route::put("/update/{id}", "update");
         Route::delete("/destroy/{id}", "destroy");
     });
 
-    Route::resource('page-category', App\Http\Controllers\Api\V1\PageCategoryController::class)->only('index', 'show');
+    Route::apiResource('page-category', App\Http\Controllers\Api\V1\PageCategoryController::class)->only('index', 'show');
 
 });
 

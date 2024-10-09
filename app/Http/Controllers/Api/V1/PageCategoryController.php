@@ -7,16 +7,17 @@ use App\Models\PageCategory;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PageCategoryResource;
 
 class PageCategoryController extends Controller
 {
     public function index(Request $request) 
     {
-       return response()->json(PageCategory::paginate(10));
+       return PageCategoryResource::collection(PageCategory::all());
     }
 
     public function show($id)
     {
-        return response()->json(PageCategory::find($id));
+        return new PageCategoryResource(PageCategory::findOrFail($id));
     }
 }
