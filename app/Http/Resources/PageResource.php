@@ -44,11 +44,11 @@ class PageResource extends JsonResource
             ],
             'relationships' => [
                 'page-category' => [
-                    'data' => [
-                        'type' => 'page-category',
-                        'id' => $this->category_id
-                    ]
+                    'type' => "PageCategory",
+                    'id' => $this->category_id,
+                    'attributes' => $this->category
                 ]
+                
                     ],
             'links' => [
                 [

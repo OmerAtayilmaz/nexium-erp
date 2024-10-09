@@ -21,6 +21,7 @@ class PageCategory extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'title',
         'description',
         'published_at',
