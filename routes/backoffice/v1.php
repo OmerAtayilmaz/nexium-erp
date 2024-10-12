@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\V1\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Models\Page;
+use Illuminate\Support\Facades\Redis;
 
 //export routes and import in api.php
 //WCMS Module
@@ -31,3 +33,51 @@ Route::prefix("wcms")->name('wcms.')->group(function () {
 
 Route::middleware('auth:sanctum')
 ->apiResource('users',UserController::class)->except('store','update');
+
+
+
+Route::get('/redis',function(){
+ //  $value =  Redis::incr('visits');
+   $value =  Redis::incrBy('visits',5);
+   return $value;
+});
+
+Route::get('/redis/pages/delete',function(){
+
+    Redis::del('amator');
+    return response()->json([
+        'status' => 200,
+        'message' => 'All cache purged.'
+    ]);
+});
+
+Route::get('/redis/pages',function(){
+
+    if(!Redis::exists('amator')){
+        $data = Page::paginate(200);
+        Redis::set('amator',json_encode($data));
+    }
+    
+
+      // Retrieve and decode the data from Redis
+      $cachedData = json_decode(Redis::get('amator'), true);
+
+    
+    return response()->json($cachedData);
+});
+
+Route::get('/redis/pages/{id}',function($id){
+
+
+    if(!Redis::exists("page.{$id}.show")){
+        $pageData = json_encode(Page::find($id));
+        Redis::set("page.{$id}.show", $pageData );
+    }
+
+    $cachedData = json_decode(Redis::get("page.{$id}.show"),true);
+
+    return response()->json([
+        'status' => 200,
+        'data' => $cachedData
+    ]);
+});

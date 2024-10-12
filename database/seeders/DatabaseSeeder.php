@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory(50)->create();
 
         $categories = PageCategory::factory(5)->create();
-        Page::factory(50)->recycle($categories)->create();
+        Page::factory(500)->recycle($categories)->create();
 
     }
 }
