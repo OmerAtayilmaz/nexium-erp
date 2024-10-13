@@ -1,10 +1,12 @@
 <?php
 
+use App\Decorator\CachablePages;
 use App\Http\Controllers\Api\V1\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Models\Page;
+use App\Repository\PageRepository;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
@@ -139,4 +141,11 @@ Route::get('/redis/video', function(){
         'status' => 200,
         'message' => Cache::get("via_cache_facade")
     ]);
+});
+
+//Pattern to implement Cache Mechanism 
+
+Route::get('/redis/posts',function(){
+   $cachablePages = app("Pages");
+   return $cachablePages->all();
 });
