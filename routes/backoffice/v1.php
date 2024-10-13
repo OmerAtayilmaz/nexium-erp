@@ -81,3 +81,24 @@ Route::get('/redis/pages/{id}',function($id){
         'data' => $cachedData
     ]);
 });
+
+//Article Visiting Strategy
+Route::get('/redis/article/{id}',function($id){
+
+    Redis::zincrby('trending_articles',1,$id);
+
+    return response()->json([
+        'status' => 200,
+        'message' => "{$id} - Article Visited."
+    ]);
+});
+
+Route::get('/redis/popular-articles',function(){
+
+    $trendingArticles = Redis::zrevrange('trending_articles',0,3);
+
+    return response()->json([
+        'status' => 200,
+        'data' =>  $trendingArticles
+    ]);
+});
