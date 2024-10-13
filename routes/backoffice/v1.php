@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Models\Page;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
 //export routes and import in api.php
@@ -100,5 +101,42 @@ Route::get('/redis/popular-articles',function(){
     return response()->json([
         'status' => 200,
         'data' =>  $trendingArticles
+    ]);
+});
+
+
+// User Stats Strategy
+Route::get('/redis/user/favourites', function(){
+
+    /*
+      $user1Stats = [
+        'favourites' => 50,
+        'watchLaters' => 90,
+        'completions' => 25
+    ];
+
+    //hmset 
+    //hgetall
+    
+  
+    Redis::hmset('user.1.stats', $user1Stats);
+   
+*/
+   return Redis::hgetall("user.1.stats");
+
+});
+
+Route::get('/redis/user/{id}/stats', function($id){
+    return Redis::hgetall("user.{$id}.stats");
+});
+
+Route::get('/redis/video', function(){
+    
+    Cache::set("via_cache_facade","dataaaa");
+    Redis::hincrby("user.1.stats",'favourites',1);
+    
+    return response()->json([
+        'status' => 200,
+        'message' => Cache::get("via_cache_facade")
     ]);
 });
