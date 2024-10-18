@@ -2,6 +2,7 @@
 
 use App\Decorator\CachablePages;
 use App\Http\Controllers\Api\V1\PageController;
+use App\Jobs\SendWelcomeEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
@@ -148,4 +149,21 @@ Route::get('/redis/video', function(){
 Route::get('/redis/posts',function(){
    $cachablePages = app("Pages");
    return $cachablePages->all();
+});
+
+//JOB
+
+Route::get('/job',function(){
+
+   
+    /* Bu yöntem job'u doğrudan çalıştırır, genellikle kuyruğa sokar ve sırasıyla çalışmasını isteriz. 
+    $job = new SendWelcomeEmail();
+    $job->handle();
+
+    */
+
+    SendWelcomeEmail::dispatch();
+
+
+    //php artisan queue:work will run all tasks sequentially in the queue then listen for new one.
 });
