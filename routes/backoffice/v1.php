@@ -2,6 +2,7 @@
 
 use App\Decorator\CachablePages;
 use App\Http\Controllers\Api\V1\PageController;
+use App\Jobs\ResetUserPassword;
 use App\Jobs\SendWelcomeEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
@@ -163,7 +164,10 @@ Route::get('/job',function(){
     */
 
     SendWelcomeEmail::dispatch();
+    ResetUserPassword::dispatch()->onQueue("userpass");
 
+    //10 sn bekler sonra çalıştırır.
+    //SendWelcomeEmail::dispatch()->delay(10);
 
     //php artisan queue:work will run all tasks sequentially in the queue then listen for new one.
 });
