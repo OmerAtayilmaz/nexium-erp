@@ -163,8 +163,9 @@ Route::get('/job',function(){
 
     */
 
-    SendWelcomeEmail::dispatch();
-    ResetUserPassword::dispatch()->onQueue("userpass");
+ //   SendWelcomeEmail::dispatch();
+   # ResetUserPassword::dispatch()->onQueue("userpass");
+    ResetUserPassword::dispatch();
 
     //10 sn bekler sonra çalıştırır.
     //SendWelcomeEmail::dispatch()->delay(10);
