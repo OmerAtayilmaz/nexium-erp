@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class SendWelcomeEmail implements ShouldQueue
 {
-    use Queueable;
+    use Batchable,Queueable,InteractsWithQueue,Queueable,SerializesModels;
 
     #Naming conventions: Fiil + Nesne Yapısı
     # ör: Send + WelcomeEmail | ResetUserPassword
@@ -54,7 +55,7 @@ class SendWelcomeEmail implements ShouldQueue
          
 
         Log::info("Handle method executed.");
-        throw new \Exception("Sth went wrong!");
+       # throw new \Exception("Sth went wrong!");
         
     }
 

@@ -4,6 +4,7 @@ use App\Decorator\CachablePages;
 use App\Http\Controllers\Api\V1\PageController;
 use App\Jobs\ResetUserPassword;
 use App\Jobs\SendWelcomeEmail;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
@@ -165,8 +166,15 @@ Route::get('/job',function(){
 
  //   SendWelcomeEmail::dispatch();
    # ResetUserPassword::dispatch()->onQueue("userpass");
-    ResetUserPassword::dispatch();
-
+    #ResetUserPassword::dispatch();
+    
+    #Using batches
+    Bus::batch([
+        new ResetUserPassword(),
+        new SendWelcomeEmail()
+    ])->allowFailures()
+    ->dispatch();
+    
     //10 sn bekler sonra çalıştırır.
     //SendWelcomeEmail::dispatch()->delay(10);
 
