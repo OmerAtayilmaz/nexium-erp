@@ -169,14 +169,45 @@ Route::get('/job',function(){
     #ResetUserPassword::dispatch();
     
     #Using batches
+
+    /* usage of catch, then and finally on queue for more complex structures 
     Bus::batch([
         new ResetUserPassword(),
         new SendWelcomeEmail()
     ])->allowFailures()
+    ->catch(function($batch, $e){
+        //p1: current batch, p2: $exception
+    })
+    ->then(function($batch){
+        //$batch -> instance of current batch
+        
+
+    })
+    ->finally(function($batch){
+         //$batch -> instance of current batch
+         //fail or not, finally will works
+    })
+    ->onQueue('deployment') //define custom queue for this batch 
+    ->onConnection("database") //might be database,redis etc.
     ->dispatch();
-    
+    */
     //10 sn bekler sonra çalıştırır.
     //SendWelcomeEmail::dispatch()->delay(10);
 
     //php artisan queue:work will run all tasks sequentially in the queue then listen for new one.
+
+
+      // might want to use Repo, tests and deploy process as well
+    Bus::batch([
+       [
+        new ResetUserPassword(),
+        new SendWelcomeEmail()
+       ],
+       [
+        new ResetUserPassword(),
+        new SendWelcomeEmail()
+       ]
+    ])->allowFailures()
+    ->onConnection("database") //might be database,redis etc.
+    ->dispatch();
 });
