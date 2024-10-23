@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Jobs\Deploy;
 use App\Models\Page;
 use App\Repository\PageRepository;
 use Illuminate\Support\Facades\Cache;
@@ -197,7 +198,8 @@ Route::get('/job',function(){
     //php artisan queue:work will run all tasks sequentially in the queue then listen for new one.
 
 
-      // might want to use Repo, tests and deploy process as well
+    /*
+    // might want to use Repo, tests and deploy process as well
     Bus::batch([
        [
         new ResetUserPassword(),
@@ -210,4 +212,11 @@ Route::get('/job',function(){
     ])->allowFailures()
     ->onConnection("database") //might be database,redis etc.
     ->dispatch();
+    */
+
+    Deploy::dispatch();
+    Deploy::dispatch();
+    Deploy::dispatch();
+    Deploy::dispatch();
+    Deploy::dispatch();
 });
