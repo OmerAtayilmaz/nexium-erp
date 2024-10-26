@@ -23,6 +23,7 @@ class PageFactory extends Factory
             'content' => fake()->randomHtml(500),
             'description' => fake()->text(120),
             'slug' => fake()->slug(8),
+            'status' => fake()->randomElements(['a','d','i']),
             'featured_image' => "7clAggheaalWSNe0sI0cwLUE4ZvYp3qJrBdqnN1B.png",
             'category_id' => PageCategory::factory(),
             'created_at' => fake()->dateTimeBetween('-5 months', 'now')

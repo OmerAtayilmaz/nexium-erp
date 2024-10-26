@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Filters\V1\PageFilter;
 use App\Http\Resources\PageResource;
 
 class PageController extends Controller
 {
-    public function index(Request $req){   
+    public function index(PageFilter $filters){   
         
-  
-        return PageResource::collection(Page::paginate(5));
+    
+        return PageResource::collection(Page::filter($filters)->paginate(5));
     }
 
     public function show($id){
