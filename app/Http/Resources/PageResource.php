@@ -8,6 +8,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PageResource extends JsonResource
 {
+    public static $wrap = 'page';
+
     /**
      * Transform the resource collection into an array.
      *
@@ -16,7 +18,7 @@ class PageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => 'ticket',
+            'type' => 'page',
             'id' => $this->id,
             'attributes' => [
                 'title' => $this->title,
